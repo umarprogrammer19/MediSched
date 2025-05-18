@@ -1,16 +1,9 @@
-import React from 'react'
-import Home from './Home/page'
-import Service from './services/page'
-import Contact from './contact/page'
 
-const page = () => {
+const Home = () => {
   return (
     <div>
-      <Home/>
-      <Service/>
-      <Contact/>
     </div>
   )
 }
 
-export default page
+export default Home
