@@ -45,7 +45,7 @@ export default function FindDoctorsPage() {
         return matchesSearch
     });
     console.log(filteredDoctors);
-    
+
     if (loading) {
         return <div className="container py-12 text-center bg-white">Loading...</div>
     }
@@ -92,13 +92,17 @@ export default function FindDoctorsPage() {
                                                 </AvatarFallback>
                                             </Avatar>
                                             <div className="space-y-1">
-                                                <h3 className="font-bold">{doctor.full_name}</h3>
+                                                <h3 className="font-bold">Dr. {doctor.full_name}</h3>
                                                 <p className="text-sm text-gray-600">{doctor.qualification}</p>
                                                 <div className="flex items-center gap-1">
-                                                    <MapPin className="h-3.5 w-3.5 text-gray-500" />
-                                                    <span className="text-xs text-gray-600">{doctor.doctor_details.country}</span>
+                                                    <MapPin className="h-4 w-4 text-gray-500" />
+                                                    <span className="text-md text-gray-600">{doctor.doctor_details.country}, {doctor.doctor_details.city}</span>
+                                                </div>
+                                                <div className="flex gap-3">
+                                                    <p>Price Per Appointment: {doctor.doctor_details.price_per_appointment}$</p>
                                                 </div>
                                             </div>
+
                                         </div>
                                         <Button className="w-full bg-[#00d4d4] hover:bg-[#00baba] text-white">View Profile</Button>
                                     </div>

@@ -58,6 +58,12 @@ export default function Navbar() {
                 About
               </Link>
               <Link
+                href="/apply"
+                className={`text-lg font-medium ${isActive("/about") ? "text-[#00d4d4]" : "text-gray-700"}`}
+              >
+                Apply For Doctor
+              </Link>
+              <Link
                 href="/contact"
                 className={`text-lg font-medium ${isActive("/contact") ? "text-[#00d4d4]" : "text-gray-700"}`}
               >
@@ -112,6 +118,12 @@ export default function Navbar() {
             className={`transition-colors hover:text-[#00d4d4] ${isActive("/about") ? "text-[#00d4d4]" : "text-gray-700"}`}
           >
             About
+          </Link>
+          <Link
+            href="/apply"
+            className={`transition-colors hover:text-[#00d4d4] ${isActive("/about") ? "text-[#00d4d4]" : "text-gray-700"}`}
+          >
+            Apply For Doctor
           </Link>
           <Link
             href="/contact"
