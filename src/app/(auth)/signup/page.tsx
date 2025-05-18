@@ -10,15 +10,16 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { BASE_URL } from "@/constant/BASE_URL"
 
 export default function SignupPage() {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
     const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     const [formData, setFormData] = useState({
-        fullName: "",
+        full_name: "",
         email: "",
-        phoneNumber: "",
+        phone_number: "",
         password: "",
         confirmPassword: "",
     })
@@ -28,11 +29,21 @@ export default function SignupPage() {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // In a real app, you would handle registration here
-        console.log("Signup form submitted:", formData)
-        router.push("/dashboard")
+        try {
+            const res = await fetch(`${BASE_URL}/auth/signup`, {
+                method: "POST",
+                body: JSON.stringify(formData),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            console.log("Signup form submitted:", formData)
+            router.push("/login")
+        } catch (error) {
+            if (error instanceof Error) console.log(error.message);
+        }
     }
 
     return (
@@ -45,13 +56,13 @@ export default function SignupPage() {
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="fullName">Full Name</Label>
+                            <Label htmlFor="full_name">Full Name</Label>
                             <Input
-                                id="fullName"
-                                name="fullName"
-                                placeholder="John Doe"
+                                id="full_name"
+                                name="full_name"
+                                placeholder="Your fullname"
                                 required
-                                value={formData.fullName}
+                                value={formData.full_name}
                                 onChange={handleChange}
                             />
                         </div>
@@ -68,14 +79,14 @@ export default function SignupPage() {
                             />
                         </div>
                         <div className="space-y-2">
-                            <Label htmlFor="phoneNumber">Phone Number</Label>
+                            <Label htmlFor="phone_number">Phone Number</Label>
                             <Input
-                                id="phoneNumber"
-                                name="phoneNumber"
+                                id="phone_number"
+                                name="phone_number"
                                 type="tel"
-                                placeholder="+1 (555) 000-0000"
+                                placeholder="+92 987 1234567"
                                 required
-                                value={formData.phoneNumber}
+                                value={formData.phone_number}
                                 onChange={handleChange}
                             />
                         </div>
@@ -94,7 +105,7 @@ export default function SignupPage() {
                                     type="button"
                                     variant="ghost"
                                     size="icon"
-                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent cursor-pointer"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? (
@@ -121,7 +132,7 @@ export default function SignupPage() {
                                     type="button"
                                     variant="ghost"
                                     size="icon"
-                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent cursor-pointer"
                                     onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                                 >
                                     {showConfirmPassword ? (
@@ -135,7 +146,7 @@ export default function SignupPage() {
                                 </Button>
                             </div>
                         </div>
-                        <Button type="submit" className="w-full bg-[#00d4d4] hover:bg-[#00baba] text-white">
+                        <Button type="submit" className="w-full bg-[#00d4d4] hover:bg-[#00baba] text-white cursor-pointer">
                             Create Account
                         </Button>
                     </form>
