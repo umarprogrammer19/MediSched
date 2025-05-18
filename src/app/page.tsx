@@ -7,11 +7,11 @@ export default function Home() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="bg-gradient-to-b from-[#e6ffff] to-white py-16 md:py-24">
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 md:px-20">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
             <div className="flex flex-col justify-center space-y-4">
               <div className="space-y-2">
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
+                <h1 className="text-3xl font-bold tracking-tighter sm:text-[40px]">
                   Medical Scheduling Made Simple
                 </h1>
                 <p className="max-w-[600px] text-gray-600 md:text-xl">
@@ -33,10 +33,10 @@ export default function Home() {
             </div>
             <div className="flex items-center justify-center">
               <img
-                src="/placeholder.svg?height=400&width=500"
+                src="/hero.webp "
                 alt="Medical Scheduling"
-                width={500}
-                height={400}
+                width={650}
+                height={550}
                 className="rounded-lg object-cover"
               />
             </div>
