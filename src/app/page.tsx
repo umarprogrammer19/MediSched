@@ -5,7 +5,7 @@ import { Calendar, Clock, UserRound, CheckCircle } from "lucide-react"
 export default function Home() {
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
+      {/* Hero Section!!*/}
       <section className="bg-gradient-to-b from-[#e6ffff] to-white py-16 md:py-24">
         <div className="container px-4 md:px-20">
           <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16">
