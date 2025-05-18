@@ -56,17 +56,22 @@ export default function DoctorProfilePage() {
         setLoading(true);
         setError(null);
 
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem("MS_AUTH_TOKEN");
+        console.log(selectedSlot);
+
         const payload = {
-            doctor_id: doctorId,
-            time_slot: selectedSlot,
-            payment_method: paymentMethod,
+            day: selectedSlot.day,
+            start_time: selectedSlot.start_time,
+            end_time: selectedSlot.end_time
         };
 
         try {
             if (paymentMethod === "online") {
 
-                const resp = await fetch(`${BASE_URL}/appointment/book`, {
+                // Store selectedSlot in sessionStorage before redirect
+                sessionStorage.setItem("selectedTimeSlot", JSON.stringify(selectedSlot));
+
+                const resp = await fetch(`${BASE_URL}/appointment/book?payment_method=${paymentMethod}&doctor_id=${doctorId}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -74,7 +79,7 @@ export default function DoctorProfilePage() {
                     },
                     body: JSON.stringify(payload),
                 });
-                
+
                 if (!resp.ok) {
                     const errorData = await resp.json();
                     throw new Error(errorData.detail || "Booking failed");
