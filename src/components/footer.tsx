@@ -1,18 +1,16 @@
 import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-50 border-t">
+        <footer className="bg-gray-50 border-t md:px-20 mx-auto">
             <div className="container py-12 md:py-16">
                 <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
                     <div className="space-y-4">
-                        <div className="flex items-center gap-2">
-                            <span className="h-8 w-8 rounded-full bg-[#00d4d4] flex items-center justify-center text-white font-bold">
-                                +
-                            </span>
-                            <span className="font-bold text-xl text-[#00d4d4]">MEDISCHED</span>
-                        </div>
+                        <Link href="/" className="flex items-center gap-2 mr-6 w-[100px] h-[60px] relative left-[11.5%]">
+                            <Image src={"/logo.png"} alt="" width={1000} height={1000} className="w-full h-full scale-400" />
+                        </Link>
                         <p className="text-gray-600">Making healthcare scheduling simple and accessible for everyone.</p>
                         <div className="flex space-x-4">
                             <Link href="#" className="text-gray-500 hover:text-[#00d4d4]">

@@ -14,6 +14,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Menu, User, LogOut, Bell, Calendar, Settings } from "lucide-react"
+import Image from "next/image"
 
 export default function Navbar() {
   const pathname = usePathname()
@@ -30,7 +31,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 md:px-20">
       <div className="container flex h-16 items-center">
         <Sheet>
           <SheetTrigger asChild>
@@ -89,14 +90,11 @@ export default function Navbar() {
           </SheetContent>
         </Sheet>
 
-        <Link href="/" className="flex items-center gap-2 mr-6">
-          <span className="h-8 w-8 rounded-full bg-[#00d4d4] flex items-center justify-center text-white font-bold">
-            +
-          </span>
-          <span className="font-bold text-xl text-[#00d4d4] hidden sm:inline-block">MEDISCHED</span>
+        <Link href="/" className="flex items-center gap-2 mr-6 w-[100px] h-[60px]">
+          <Image src={"/logo.png"} alt="" width={1000} height={1000} className="w-full h-full scale-400" />
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium flex-1">
+        <nav className="hidden md:flex items-center gap-6 text-sm font-medium flex-1 md:ms-10">
           <Link
             href="/"
             className={`transition-colors hover:text-[#00d4d4] ${isActive("/") ? "text-[#00d4d4]" : "text-gray-700"}`}
