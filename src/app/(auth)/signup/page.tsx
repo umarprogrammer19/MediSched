@@ -39,6 +39,7 @@ export default function SignupPage() {
                     "Content-type": "application/json"
                 }
             })
+            if (!res.ok) return;
             console.log("Signup form submitted:", formData)
             router.push("/login")
         } catch (error) {

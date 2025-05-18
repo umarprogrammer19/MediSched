@@ -9,13 +9,15 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { Eraser, EyeIcon, EyeOffIcon } from "lucide-react"
+import { BASE_URL } from "@/constant/BASE_URL"
 
 export default function LoginPage() {
     const router = useRouter()
     const [showPassword, setShowPassword] = useState(false)
+    const [error, setError] = useState<string>("");
     const [formData, setFormData] = useState({
-        email: "",
+        username: "",
         password: "",
     })
 
@@ -24,11 +26,27 @@ export default function LoginPage() {
         setFormData((prev) => ({ ...prev, [name]: value }))
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        // In a real app, you would handle authentication here
-        console.log("Login form submitted:", formData)
-        router.push("/dashboard")
+        try {
+            const formDataToSend = new FormData();
+            formDataToSend.append("username", formData.username);
+            formDataToSend.append("password", formData.password);
+
+            const res = await fetch(`${BASE_URL}/auth/login`, {
+                method: "POST",
+                body: formDataToSend,
+            });
+            const data = await res.json()
+
+            if (res.status == 400 || !res.ok) return setError(data.detail || "Error");
+
+            localStorage.setItem("MS_AUTH_TOKEN", data.access_token);
+            console.log("Login form submitted:", formData)
+            router.push("/")
+        } catch (error) {
+            if (error instanceof Error) console.warn(error.message);
+        }
     }
 
     return (
@@ -41,14 +59,14 @@ export default function LoginPage() {
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div className="space-y-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="username">Email</Label>
                             <Input
-                                id="email"
-                                name="email"
-                                type="email"
+                                id="username"
+                                name="username"
+                                type="username"
                                 placeholder="name@example.com"
                                 required
-                                value={formData.email}
+                                value={formData.username}
                                 onChange={handleChange}
                             />
                         </div>
@@ -84,6 +102,7 @@ export default function LoginPage() {
                                 </Button>
                             </div>
                         </div>
+                        {error && <p className="text-red-600 text-md">{error}</p>}
                         <Button type="submit" className="w-full bg-[#00d4d4] hover:bg-[#00baba] text-white">
                             Login
                         </Button>
